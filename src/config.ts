@@ -14,7 +14,7 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'Ah Ken',
     // site url
-    url: 'https://shooker.netlify.app',
+    url: 'https://ahkenchannel.netlify.app',
     // favicon url
     // recommended formats: svg, png or ico
     favicon: '/icon/favicon.png', // or https://example.com/favicon.svg
