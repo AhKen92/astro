@@ -1,6 +1,6 @@
 export const ui = {
   'zh': {
-    title: 'Ah Ken的频道',
+    title: 'Shooker 说书客',
     subtitle: '种一棵树最好的时间是十年前，其次是现在',
     description: '暂时还没想好',
     posts: '文章',

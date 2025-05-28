@@ -4,7 +4,7 @@ export const themeConfig: ThemeConfig = {
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   site: {
     // site title
-    title: 'Ah Ken的频道',
+    title: 'Shooker 说书客',
     // site subtitle
     subtitle: '种一棵树最好的时间是十年前，其次是现在',
     // site description
@@ -14,7 +14,7 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'Ah Ken',
     // site url
-    url: 'https://ahkenchannel.netlify.app',
+    url: 'https://shooker.netlify.app',
     // favicon url
     // recommended formats: svg, png or ico
     favicon: '/icon/favicon.png', // or https://example.com/favicon.svg
