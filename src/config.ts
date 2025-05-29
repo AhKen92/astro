@@ -17,11 +17,7 @@ export const themeConfig: ThemeConfig = {
     url: 'https://shooker.netlify.app',
     // favicon url
     // recommended formats: svg, png or ico
-<<<<<<< HEAD
     favicon: '/icon/favicon.png', // or https://example.com/favicon.svg
-=======
-    favicon: '/icons/favicon.svg', // or https://example.com/favicon.svg
->>>>>>> cb55fc4090de4b9902049a6630689b9bd4b50aa8
   },
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
