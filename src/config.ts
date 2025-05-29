@@ -14,10 +14,14 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'Ah Ken',
     // site url
-    url: 'https://ahkenchannel.netlify.app',
+    url: 'https://shooker.netlify.app',
     // favicon url
     // recommended formats: svg, png or ico
+<<<<<<< HEAD
     favicon: '/icon/favicon.png', // or https://example.com/favicon.svg
+=======
+    favicon: '/icons/favicon.svg', // or https://example.com/favicon.svg
+>>>>>>> cb55fc4090de4b9902049a6630689b9bd4b50aa8
   },
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
@@ -38,11 +42,8 @@ export const themeConfig: ThemeConfig = {
     },
     dark: {
       // primary color
-      // used for title, hover, etc
-      // oklch color picker: https://oklch.com/
       primary: 'oklch(92% 0.005 298)',
       // secondary color
-      // used for post text
       secondary: 'oklch(77% 0.005 298)',
       // background color
       background: 'oklch(22% 0.005 298)',
@@ -53,18 +54,20 @@ export const themeConfig: ThemeConfig = {
   // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   global: {
     // default language
-    locale: 'zh', // zh, zh-tw, ja, en, es, ru
+    locale: 'zh', // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
     // more languages
-    // not fill in the locale code above again
-    moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'], // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
+    // not fill in the locale code above again, can be an empty array []
+    moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
     // font styles for post text
     fontStyle: 'sans', // sans, serif
     // date format for posts
     dateFormat: 'YYYY-MM-DD', // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
-    // gap between title and subtitle
-    titleGap: 2, // 1, 2, 3
+    // enable table of contents for all posts by default
+    toc: true, // true, false
     // enable KaTeX for mathematical formulas rendering
     katex: true, // true, false
+    // reduce animations and transitions to improve performance
+    reduceMotion: false, // true, false
   },
   // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
@@ -86,7 +89,6 @@ export const themeConfig: ThemeConfig = {
       // gif search
       search: false, // true, false
       // image uploader
-      // bug: unable to hide image uploader icon
       imageUploader: false, // true, false
     },
   },
@@ -138,23 +140,23 @@ export const themeConfig: ThemeConfig = {
     links: [
       {
         name: 'RSS',
-        url: '/rss.xml', // rss.xml, atom.xml
+        url: '/atom.xml', // or /rss.xml
       },
       {
         name: 'GitHub',
         url: 'https://github.com/radishzzz/astro-theme-retypeset',
       },
       {
-        name: 'Twitter',
-        url: 'https://x.com/radishzz_',
+        name: 'Email',
+        url: 'email@radishzz.cc',
       },
       // {
-      //   name: 'Email',
-      //   url: 'https://example@gmail.com',
-      // }
+      //   name: 'X',
+      //   url: 'https://x.com/radishzz_',
+      // },
     ],
     // year of website start
-    startYear: 2024,
+    startYear: 2025,
   },
   // FOOTER SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
@@ -163,9 +165,8 @@ export const themeConfig: ThemeConfig = {
     // link prefetch
     // docs: https://docs.astro.build/en/guides/prefetch/#prefetch-strategies
     linkPrefetch: 'viewport', // hover, tap, viewport, load
-    // comment server url
-    commentURL: 'https://retypeset-comment.radishzz.cc',
     // image hosting url
+    // optimize remote images in Markdown files to avoid cumulative layout shift
     imageHostURL: 'https://image.radishzz.cc',
     // custom google analytics js
     // for users who route analytics javascript to a customized domain
