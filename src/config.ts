@@ -101,7 +101,7 @@ export const themeConfig: ThemeConfig = {
       google: '55c110711b502a86',
       // bing webmaster tools
       // https://www.bing.com/webmasters
-      bing: '64708CD514011A7965C84DDE1D169F87',
+      bing: '',
       // yandex webmaster
       // https://webmaster.yandex.com
       yandex: '',
@@ -114,7 +114,7 @@ export const themeConfig: ThemeConfig = {
     googleAnalyticsID: '',
     // umami analytics
     // https://cloud.umami.is
-    umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697',
+    umamiAnalyticsID: '',
     // follow verification
     // https://follow.is/
     follow: {
@@ -140,15 +140,15 @@ export const themeConfig: ThemeConfig = {
       },
       {
         name: 'GitHub',
-        url: 'https://github.com/radishzzz/astro-theme-retypeset',
+        url: '',
       },
       {
         name: 'Email',
-        url: 'email@radishzz.cc',
+        url: 'cksinuyasha@gmail.com',
       },
       // {
       //   name: 'X',
-      //   url: 'https://x.com/radishzz_',
+      //   url: '',
       // },
     ],
     // year of website start
