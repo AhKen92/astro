@@ -35,11 +35,12 @@ const SubtitleTag = isPost ? 'div' : 'h2'
       data-disable-theme-transition
     >
       <a
-        id="site-title-link"
-        href={getLocalizedPath('/')}
-      >
-          {headerTitle}
-      </a>
+          id="site-title-link"
+          href={getLocalizedPath('/')}
+        >
+            <img src="/icons/favicon.jpg" alt="Logo" class="h-8 w-8 mr-2 inline-block" />
+            {headerTitle}
+        </a>
     </div>
   </TitleTag>
 
