@@ -10,11 +10,14 @@ export const themeConfig: ThemeConfig = {
     // site description
     description: '',
     // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
-    i18nTitle: true, // true, false
+    i18nTitle: true, // true | false
     // author name
     author: 'Ah Ken',
     // site url
     url: 'https://shooker.netlify.app',
+    // base path
+    // root directory for all pages and assets
+    base: '/', // e.g., '/blog', '/docs'
     // favicon url
     // recommended formats: svg, png or ico
     favicon: '/icons/favicon.jpg', // or https://example.com/favicon.svg
@@ -24,7 +27,7 @@ export const themeConfig: ThemeConfig = {
   // COLOR SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   color: {
     // default theme mode
-    mode: 'light', // light, dark, auto
+    mode: 'light', // light | dark | auto
     light: {
       // primary color
       // used for title, hover, etc
@@ -35,6 +38,9 @@ export const themeConfig: ThemeConfig = {
       secondary: 'oklch(40% 0.005 298)',
       // background color
       background: 'oklch(96% 0.005 298)',
+      // highlight color
+      // used for navbar, selected text, etc
+      highlight: 'oklch(0.93 0.195089 103.2532 / 0.5)', // rgba(255,235,0,0.5)
     },
     dark: {
       // primary color
@@ -43,6 +49,8 @@ export const themeConfig: ThemeConfig = {
       secondary: 'oklch(77% 0.005 298)',
       // background color
       background: 'oklch(22% 0.005 298)',
+      // highlight color
+      highlight: 'oklch(0.93 0.195089 103.2532 / 0.2)', // rgba(255,235,0,0.2)
     },
   },
   // COLOR SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
@@ -50,10 +58,10 @@ export const themeConfig: ThemeConfig = {
   // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   global: {
     // default language
-    locale: 'zh', // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
+    locale: 'zh', // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
     // more languages
     // not fill in the locale code above again, can be an empty array []
-    moreLocales: ['zh-tw'], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+    moreLocales: [], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
     // font styles for post text
     fontStyle: 'sans', // sans, serif
     // date format for posts
@@ -70,8 +78,27 @@ export const themeConfig: ThemeConfig = {
   // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   comment: {
     // enable comment system
-    enabled: false, // true, false
-    // waline comment system
+    enabled: false, // true | false
+    // giscus
+    // https://giscus.app/
+    giscus: {
+      repo: '',
+      repoId: '',
+      category: '',
+      categoryId: '',
+      mapping: 'pathname',
+      strict: '0',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'bottom',
+    },
+    // twikoo
+    // https://twikoo.js.org/
+    twikoo: {
+      envId: '',
+      // version: frontend version can be changed in package.json
+    },
+    // waline
     // https://waline.js.org/en/
     waline: {
       // server url
@@ -83,9 +110,9 @@ export const themeConfig: ThemeConfig = {
         // more emojis: https://waline.js.org/en/guide/features/emoji.html
       ],
       // gif search
-      search: false, // true, false
+      search: false, // true | false
       // image uploader
-      imageUploader: false, // true, false
+      imageUploader: false, // true | false
     },
   },
   // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
@@ -115,16 +142,16 @@ export const themeConfig: ThemeConfig = {
     // umami analytics
     // https://cloud.umami.is
     umamiAnalyticsID: '',
-    // follow verification
-    // https://follow.is/
-    follow: {
+    // folo verification
+    // https://folo.is/
+    folo: {
       // feed ID
       feedID: '',
       // user ID
       userID: '',
     },
     // apiflash access key
-    // automatically generate website screenshots for open graph images
+    // generate website screenshots for open graph images
     // get your access key at: https://apiflash.com/
     apiflashKey: '',
   },
@@ -158,26 +185,22 @@ export const themeConfig: ThemeConfig = {
 
   // PRELOAD SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   preload: {
-    // link prefetch
-    // docs: https://docs.astro.build/en/guides/prefetch/#prefetch-strategies
-    linkPrefetch: 'viewport', // hover, tap, viewport, load
     // image hosting url
-    // optimize remote images in Markdown files to avoid cumulative layout shift
-    imageHostURL: 'https://image.radishzz.cc',
+    // optimize remote images and generate low-quality placeholders
+    imageHostURL: 'image.radishzz.cc',
     // custom google analytics js
-    // for users who route analytics javascript to a customized domain
-    // See https://gist.github.com/xiaopc/0602f06ca465d76bd9efd3dda9393738
+    // for users who proxy tracking scripts to a custom domain
+    // see https://gist.github.com/xiaopc/0602f06ca465d76bd9efd3dda9393738
     customGoogleAnalyticsJS: '',
     // custom umami analytics js
-    // for users who deploy umami on their own, or route analytics javascript to a customized domain
-    // see https://github.com/umami-software/umami/discussions/1026
-    customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js',
+    // for users who self-deploy umami or proxy tracking scripts to a custom domain
+    // see https://umami.is/docs/bypass-ad-blockers
+    customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js',
   },
   // PRELOAD SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 }
 
-export default themeConfig
-
+export const base = themeConfig.site.base === '/' ? '' : themeConfig.site.base.replace(/\/$/, '')
 export const defaultLocale = themeConfig.global.locale
 export const moreLocales = themeConfig.global.moreLocales
 export const allLocales = [defaultLocale, ...moreLocales]

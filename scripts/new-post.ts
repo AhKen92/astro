@@ -1,18 +1,15 @@
+/**
+ * Create a new post with frontmatter
+ * Usage: pnpm new-post <title>
+ */
+
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { basename, dirname, extname, join } from 'node:path'
 import process from 'node:process'
 import { themeConfig } from '../src/config'
 
-// pnpm new-post
-// pnpm new-post first-post
-// pnpm new-post first-post.md
-// pnpm new-post first-post.mdx
-// pnpm new-post 2025/03/first-post
-// pnpm new-post 2025/03/first-post.md
-// pnpm new-post 2025/03/first-post.mdx
-
 // Process file path
-const rawPath = process.argv[2] || 'new-post'
+const rawPath = process.argv[2] ?? 'new-post'
 const baseName = basename(rawPath).replace(/\.(md|mdx)$/, '')
 const targetFile = ['.md', '.mdx'].includes(extname(rawPath))
   ? rawPath
@@ -29,25 +26,19 @@ if (existsSync(fullPath)) {
 mkdirSync(dirname(fullPath), { recursive: true })
 
 // Prepare file content
-const today = new Date().toISOString().split('T')[0]
 const content = `---
 title: ${baseName}
-published: ${today}
-
-# Optional
+published: ${new Date().toISOString()}
 description: ''
 updated: ''
 tags:
-  - Note
-
-# Advanced
+  - Tag
 draft: false
 pin: 0
 toc: ${themeConfig.global.toc}
 lang: ''
 abbrlink: ''
 ---
-
 `
 
 // Write to file
