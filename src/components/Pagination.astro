@@ -10,15 +10,19 @@ export interface Props {
 
 const { currentPage, totalPages, lang } = Astro.props
 
-const labels: Partial<Record<Language, { prev: string, next: string }>> = {
-  'zh': { prev: '上一页', next: '下一页' },
-  'zh-tw': { prev: '上一頁', next: '下一頁' },
-  'en': { prev: 'Newer', next: 'Older' },
+const labels: Partial<Record<Language, { prev: string, next: string, jump: string }>> = {
+  'zh': { prev: '上一页', next: '下一页', jump: '输入页码后按回车跳转' },
+  'zh-tw': { prev: '上一頁', next: '下一頁', jump: '輸入頁碼後按 Enter 跳轉' },
+  'en': { prev: 'Newer', next: 'Older', jump: 'Type a page number and press Enter' },
 }
-const { prev: prevLabel, next: nextLabel } = labels[lang] ?? labels.en!
+const { prev: prevLabel, next: nextLabel, jump: jumpLabel } = labels[lang] ?? labels.en!
 
 const hasPrev = currentPage > 1
 const hasNext = currentPage < totalPages
+
+// URL pieces used by the jump script: page 1 is the home page, others are `<prefix><n>/`
+const homeUrl = getPagePath(1, lang)
+const pagePrefix = getPagePath(2, lang).slice(0, -2) // '/page/2/' -> '/page/'
 ---
 
 {totalPages > 1 && (
@@ -38,7 +42,26 @@ const hasNext = currentPage < totalPages
       )}
     </div>
 
-    <span class="font-time">{currentPage} / {totalPages}</span>
+    <span class="flex items-center gap-1 font-time">
+      <input
+        id="page-jump-input"
+        class="page-jump-input"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        autocomplete="off"
+        value={currentPage}
+        style={`width: ${String(totalPages).length + 1.5}ch`}
+        aria-label={jumpLabel}
+        title={jumpLabel}
+        data-current={currentPage}
+        data-total={totalPages}
+        data-home-url={homeUrl}
+        data-page-prefix={pagePrefix}
+      />
+      <span aria-hidden="true">/</span>
+      <span>{totalPages}</span>
+    </span>
 
     <div class="min-w-[5em] text-right">
       {hasNext && (
@@ -53,3 +76,71 @@ const hasNext = currentPage < totalPages
     </div>
   </nav>
 )}
+
+<style>
+.page-jump-input {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.page-jump-input:hover,
+.page-jump-input:focus {
+  opacity: 1;
+}
+</style>
+
+<!-- Page Jump Script >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+<script>
+import { navigate } from 'astro:transitions/client'
+
+function getJumpInput(target: EventTarget | null) {
+  return target instanceof HTMLInputElement && target.id === 'page-jump-input'
+    ? target
+    : null
+}
+
+// Press Enter to jump to the typed page (clamped to 1..total)
+function handlePageJump(e: KeyboardEvent) {
+  const input = getJumpInput(e.target)
+  if (!input || e.key !== 'Enter' || e.isComposing) {
+    return
+  }
+  e.preventDefault()
+
+  const current = Number(input.dataset.current)
+  const total = Number(input.dataset.total)
+  const homeUrl = input.dataset.homeUrl ?? '/'
+  const pagePrefix = input.dataset.pagePrefix ?? ''
+
+  const value = Number.parseInt(input.value.trim(), 10)
+  if (Number.isNaN(value)) {
+    input.value = String(current)
+    return
+  }
+
+  const page = Math.min(Math.max(value, 1), total)
+  input.value = String(page)
+  if (page === current) {
+    return
+  }
+
+  navigate(page === 1 ? homeUrl : `${pagePrefix}${page}/`)
+}
+
+// Select the whole number on focus so it can be overwritten directly
+function handleFocusIn(e: FocusEvent) {
+  getJumpInput(e.target)?.select()
+}
+
+document.addEventListener('keydown', handlePageJump)
+document.addEventListener('focusin', handleFocusIn)
+</script>
