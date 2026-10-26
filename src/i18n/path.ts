@@ -18,6 +18,23 @@ export function getTagPath(tagName: string, lang: Language): string {
 }
 
 /**
+ * Get path to a specific home pagination page with language support
+ * Page 1 is the home page itself, so it has no `/page/1/` path
+ *
+ * @param page Page number (starts from 1)
+ * @param lang Current language code
+ * @returns Path to the paginated home page
+ */
+export function getPagePath(page: number, lang: Language): string {
+  const langPrefix = lang === defaultLocale ? '' : `/${lang}`
+  const pagePath = page <= 1
+    ? `${langPrefix}/`
+    : `${langPrefix}/page/${page}/`
+
+  return base ? `${base}${pagePath}` : pagePath
+}
+
+/**
  * Get path to a specific post page with language support
  *
  * @param slug Post slug

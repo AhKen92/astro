@@ -1,0 +1,34 @@
+---
+import HomePosts from '@/components/HomePosts.astro'
+import { allLocales, postsPerPage } from '@/config'
+import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import Layout from '@/layouts/Layout.astro'
+import { getRegularPosts } from '@/utils/content'
+
+// Page 1 is the home page itself, so only pages 2..N are generated here
+export async function getStaticPaths() {
+  const paths = await Promise.all(allLocales.map(async (lang) => {
+    const regularPosts = await getRegularPosts(lang)
+    const totalPages = Math.max(1, Math.ceil(regularPosts.length / postsPerPage))
+    return Array.from({ length: totalPages - 1 }, (_, i) => ({
+      params: { lang: getLangRouteParam(lang), page: String(i + 2) },
+    }))
+  }))
+  return paths.flat()
+}
+
+const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentPage = Number(Astro.params.page)
+const regularPosts = await getRegularPosts(currentLang)
+const totalPages = Math.ceil(regularPosts.length / postsPerPage)
+const posts = regularPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+---
+
+<Layout>
+  <HomePosts
+    posts={posts}
+    lang={currentLang}
+    currentPage={currentPage}
+    totalPages={totalPages}
+  />
+</Layout>

@@ -1,0 +1,55 @@
+---
+import type { Language } from '@/i18n/config'
+import { getPagePath } from '@/i18n/path'
+
+export interface Props {
+  currentPage: number
+  totalPages: number
+  lang: Language
+}
+
+const { currentPage, totalPages, lang } = Astro.props
+
+const labels: Partial<Record<Language, { prev: string, next: string }>> = {
+  'zh': { prev: '上一页', next: '下一页' },
+  'zh-tw': { prev: '上一頁', next: '下一頁' },
+  'en': { prev: 'Newer', next: 'Older' },
+}
+const { prev: prevLabel, next: nextLabel } = labels[lang] ?? labels.en!
+
+const hasPrev = currentPage > 1
+const hasNext = currentPage < totalPages
+---
+
+{totalPages > 1 && (
+  <nav
+    aria-label="Pagination"
+    class="mt-10 flex items-center justify-between text-3.6 c-secondary lg:text-4 cjk:tracking-wide"
+  >
+    <div class="min-w-[5em]">
+      {hasPrev && (
+        <a
+          class="transition-colors hover:c-primary"
+          href={getPagePath(currentPage - 1, lang)}
+          rel="prev"
+        >
+          ← {prevLabel}
+        </a>
+      )}
+    </div>
+
+    <span class="font-time">{currentPage} / {totalPages}</span>
+
+    <div class="min-w-[5em] text-right">
+      {hasNext && (
+        <a
+          class="transition-colors hover:c-primary"
+          href={getPagePath(currentPage + 1, lang)}
+          rel="next"
+        >
+          {nextLabel} →
+        </a>
+      )}
+    </div>
+  </nav>
+)}

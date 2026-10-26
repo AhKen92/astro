@@ -204,3 +204,5 @@ export const base = themeConfig.site.base === '/' ? '' : themeConfig.site.base.r
 export const defaultLocale = themeConfig.global.locale
 export const moreLocales = themeConfig.global.moreLocales
 export const allLocales = [defaultLocale, ...moreLocales]
+// number of regular posts shown per page on the home page
+export const postsPerPage = 10

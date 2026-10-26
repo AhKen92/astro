@@ -12,9 +12,15 @@ function matchPageType(path: string, prefix: string = '') {
   // Remove leading and trailing slashes from the path
   const normalizedPath = pathWithoutBase.replace(/^\/|\/$/g, '')
 
-  // Homepage check: matches root path ('') or language code ('en', 'zh-tw')
+  // Homepage check: matches root path ('') or language code ('en', 'zh-tw'),
+  // plus paginated home pages ('page/2', 'en/page/2')
   if (prefix === '') {
-    return normalizedPath === '' || (moreLocales as readonly string[]).includes(normalizedPath)
+    const segments = normalizedPath.split('/').filter(Boolean)
+    if (segments.length > 0 && (moreLocales as readonly string[]).includes(segments[0])) {
+      segments.shift()
+    }
+    return segments.length === 0
+      || (segments.length === 2 && segments[0] === 'page' && /^\d+$/.test(segments[1]))
   }
 
   // Ensure strict segment boundary matching to prevent partial matches

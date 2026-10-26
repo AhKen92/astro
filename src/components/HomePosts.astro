@@ -1,0 +1,43 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import Pagination from '@/components/Pagination.astro'
+import PostList from '@/components/PostList.astro'
+import { groupPostsByYear } from '@/utils/content'
+
+export interface Props {
+  posts: Post[]
+  lang: Language
+  pinnedPosts?: Post[]
+  currentPage?: number
+  totalPages?: number
+}
+
+const {
+  posts,
+  lang,
+  pinnedPosts = [],
+  currentPage = 1,
+  totalPages = 1,
+} = Astro.props
+
+const postsByYear = groupPostsByYear(posts)
+---
+
+<!-- Pinned Posts (first page only) -->
+{pinnedPosts.length > 0 && (
+  <section class="mb-7.5">
+    <div class="uno-decorative-line" />
+    <PostList posts={pinnedPosts} lang={lang} pinned={true} />
+  </section>
+)}
+
+<!-- Regular Posts of the current page, grouped by year -->
+{Array.from(postsByYear.entries(), ([_year, yearPosts]) => (
+  <section class="mb-7.5">
+    <div class="uno-decorative-line" />
+    <PostList posts={yearPosts} lang={lang} />
+  </section>
+))}
+
+<Pagination currentPage={currentPage} totalPages={totalPages} lang={lang} />
